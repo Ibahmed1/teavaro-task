@@ -27,7 +27,31 @@ window.testApi = {
 
 window.onload = () => {
   if (!configChecks()) return;
+  else {
+    setLocalStorage();
+    setCookie();
+  }
 };
+
+function setLocalStorage() {
+  const localStorageValue = window.testApi.getValues()[config.localStorageKey];
+  window.localStorage.setItem(config.localStorageKey, localStorageValue);
+
+  return;
+}
+
+function setCookie() {
+  const cookieName = config.cookieName;
+  const cookieValue = window.testApi.getValues()[cookieName];
+  const newCookie = `${cookieName}=${cookieValue}; max-age=${daysToSeconds(config.ttl)}; SameSite=None; Secure`;
+
+  document.cookie = newCookie;
+  return;
+}
+
+function daysToSeconds(days) {
+  return days * 24 * 60 * 60;
+}
 
 function configChecks() {
   let browserIsReady;
