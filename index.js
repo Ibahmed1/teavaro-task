@@ -25,22 +25,20 @@ window.testApi = {
   },
 };
 
-window.onload = () => {
+window.onload = async () => {
   if (!configChecks()) return;
-  else {
-    setLocalStorage();
-    setCookie();
-  }
+  await settingLocalStorage();
+  await settingCookie();
 };
 
-function setLocalStorage() {
+async function settingLocalStorage() {
   const localStorageValue = window.testApi.getValues()[config.localStorageKey];
   window.localStorage.setItem(config.localStorageKey, localStorageValue);
 
   return;
 }
 
-function setCookie() {
+async function settingCookie() {
   const cookieName = config.cookieName;
   const cookieValue = window.testApi.getValues()[cookieName];
   const newCookie = `${cookieName}=${cookieValue}; max-age=${daysToSeconds(config.ttl)}; SameSite=None; Secure`;
