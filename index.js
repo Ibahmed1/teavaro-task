@@ -29,6 +29,8 @@ window.onload = async () => {
   if (!configChecks()) return;
   await settingLocalStorage();
   await settingCookie();
+  displayAlert("data saved", config.user);
+  return;
 };
 
 async function settingLocalStorage() {
