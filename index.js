@@ -27,9 +27,21 @@ window.testApi = {
 
 window.onload = async () => {
   if (!configChecks()) return;
-  await settingLocalStorage();
-  await settingCookie();
-  displayAlert("data saved", config.user);
+
+  try {
+    await settingLocalStorage();
+  } catch (error) {
+    console.log({ error: "could not set local storage" });
+    return;
+  }
+
+  try {
+    await settingCookie();
+  } catch (error) {
+    console.log({ error: "could not set cookie" });
+    return;
+  }
+  displayAlerts("data saved", config.user);
   return;
 };
 
